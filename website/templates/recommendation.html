@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+    	body {
+		    padding-top: 70px;
+		}
+		footer {
+		    margin: 50px 0;
+		}
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div><h1>In-Game Recommendation System</h1></div>
+                <div style="font-weight: 500;">
+                    This page is used to simulate an embedded game recommendation system.
+                    When a player logs in or performs some specified operations, the system recommends new, attractive games to him/her from multiple perspectives.
+                    The system implements recommendations algorithms on popularity, content similarity, item based collaborative filtering and ALS collaborative filtering.
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Current User Id  <small>{{ userid }}</small></h2>
+            </div>
+        </div>
+
+        {% if favorite_app_data == None %}
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Popularity Based Results</h2>
+            </div>
+        </div>
+
+        {% for (steam_appid,name,price,image_url) in lst_popularity_based_recommended_games %}
+
+        <!-- Project One -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- <a href="#"> -->
+                    <img src="{{ image_url }}">
+                <!-- </a> -->
+            </div>
+            <div class="col-md-6">
+                <h3>{{ name }}</h3>
+                <h4>$ {{ price }}</h4>
+                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p> -->
+                <a class="btn btn-primary" href="http://store.steampowered.com/app/{{steam_appid}}">Purchase <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        {% endfor %}
+
+        {% else %}
+        <div class="row">
+            <div class="col-md-6">
+                <!-- <a href="#"> -->
+                <h2>Favorite Game</h2>
+                <!-- </a> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=""col-md-6">
+                <img src="{{ favorite_app_data[3]}}">
+            </div>
+            <div class=""col-md-6">
+                <h3>{{ favorite_app_data[1] }}</h3>
+                <h4>{{ favorite_app_data[2] }}</h4>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Content Based Results</h2>
+            </div>
+        </div>
+
+        {% for (steam_appid,name,price,image_url) in lst_content_based_recommended_games %}
+
+        <!-- Project One -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- <a href="#"> -->
+                    <img src="{{ image_url }}">
+                <!-- </a> -->
+            </div>
+            <div class="col-md-6">
+                <h3>{{ name }}</h3>
+                <h4>$ {{ price }}</h4>
+                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p> -->
+                <a class="btn btn-primary" href="http://store.steampowered.com/app/{{steam_appid}}">Purchase <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        {% endfor %}
+
+            <div class="row">
+            <div class="col-md-6">
+                <h2>Item Based Results</h2>
+            </div>
+        </div>
+
+        {% for (steam_appid,name,price,image_url) in lst_item_based_recommended_games %}
+
+        <!-- Project One -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- <a href="#"> -->
+                    <img src="{{ image_url }}">
+                <!-- </a> -->
+            </div>
+            <div class="col-md-6">
+                <h3>{{ name }}</h3>
+                <h4>$ {{ price }}</h4>
+                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p> -->
+                <a class="btn btn-primary" href="http://store.steampowered.com/app/{{steam_appid}}">Purchase <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        {% endfor %}
+
+            <div class="row">
+            <div class="col-md-6">
+                <h2>ALS Results</h2>
+            </div>
+        </div>
+
+        {% for (steam_appid,name,price,image_url) in lst_als_recommended_games %}
+
+        <!-- Project One -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- <a href="#"> -->
+                    <img src="{{ image_url }}">
+                <!-- </a> -->
+            </div>
+            <div class="col-md-6">
+                <h3>{{ name }}</h3>
+                <h4>$ {{ price }}</h4>
+                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p> -->
+                <a class="btn btn-primary" href="http://store.steampowered.com/app/{{steam_appid}}">Purchase <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        {% endfor %}
+        {% endif %}
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Xingwen Niu</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
